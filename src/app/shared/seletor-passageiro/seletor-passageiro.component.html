@@ -1,0 +1,14 @@
+<ul>
+  <li>
+    <strong>{{titulo}}</strong>
+  </li>
+  <li>
+    {{subTitulo}}
+  </li>
+  <li>
+    <app-botao-controle (click)="decrementar()" operacao="decrementar" ></app-botao-controle>
+    <span>{{value}}</span>
+    <app-botao-controle (click)="incrementar()" operacao="incrementar"></app-botao-controle>
+  </li>
+</ul>
+

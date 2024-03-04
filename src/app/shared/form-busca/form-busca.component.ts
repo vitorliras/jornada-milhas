@@ -19,4 +19,8 @@ export class FormBuscaComponent {
       width: '50%',
     });
   }
+
+  buscar(){
+    console.log(this.formBuscaService.formBusca.value)
+  }
 }

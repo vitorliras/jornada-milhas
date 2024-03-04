@@ -6,15 +6,25 @@ export interface Promocao {
 }
 
 export interface UnidadeFederativa {
-  id: number
-  nome: string
-  sigla: string
+  id: number;
+  nome: string;
+  sigla: string;
 }
 
 export interface Depoimento {
-  id: number
-  texto: string
-  autor: string
-  avatar: string
+  id: number;
+  texto: string;
+  autor: string;
+  avatar: string;
 }
 
+export interface PessoaUsuaria {
+nome: string;
+nascimento: string;
+cpf: string;
+telefone: string;
+email: string;
+senha: string;
+cidade: string;
+estado: UnidadeFederativa;
+}
