@@ -1,0 +1,11 @@
+<app-banner
+  src="assets/imagens/banner-perfil.png"
+  alt="Banner da aplicação Jornada"
+></app-banner>
+<app-form-base
+(acaoCLique)="atualizar()"
+(sair)="deslogar()"
+[txtBotao]="txtBotao"
+[titulo]="titulo + nome"
+[perfilComponent]="perfilComponent"
+></app-form-base>

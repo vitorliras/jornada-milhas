@@ -2,10 +2,19 @@
   <mat-toolbar>
     <img src="assets/imagens/logo.png" alt="logo">
     <span class="example-spacer"></span>
-    <button mat-button>Vender Milhas</button>
-    <button mat-button>Sobre</button>
-    <button mat-raised-button color="primary" routerLink="/cadastro"	>CADASTRA-SE</button>
-    <button mat-stroked-button routerLink="/login" >Login</button>
-
+    <div class="links-toobar">
+      <button mat-button>Vender Milhas</button>
+      <button mat-button>Sobre</button>
+      <ng-container *ngIf="user$ | async as pessoaUsuaria, else login">
+        <a  routerLink="/perfil">
+          <img src="assets/icones/user.png" alt="icone perfil">
+        </a>
+        <button (click)="logout()" mat-stroked-button>SAIR</button>
+      </ng-container>
+      <ng-template #login>
+        <button mat-raised-button color="primary" routerLink="/cadastro"	>CADASTRA-SE</button>
+        <button mat-stroked-button routerLink="/login" >Login</button>
+      </ng-template>
+    </div>
   </mat-toolbar>
 </header>

@@ -13,7 +13,10 @@ export class FormBaseComponent implements OnInit{
   cadastroForm!: FormGroup;
   estadoControl = new FormControl<UnidadeFederativa | null>(null, Validators.required);
   @Input() perfilComponent!: boolean
+  @Input() txtBotao: string = "Cadastrar"
+  @Input() titulo: string = "Crie sua conta"
   @Output() acaoCLique: EventEmitter<any> = new EventEmitter<any>;
+  @Output() sair: EventEmitter<any> = new EventEmitter<any>;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -22,24 +25,36 @@ export class FormBaseComponent implements OnInit{
 
   ngOnInit() {
     this.cadastroForm = this.formBuilder.group({
-      nome: ["null", Validators.required],
-      nascimento: ["null", [Validators.required]],
-      cpf: ["5555555", [Validators.required]],
-      cidade: ["null", Validators.required],
-      email: ["null@gmail.com", [Validators.required, Validators.email]],
-      senha: ["null", [Validators.required, Validators.minLength(3)]],
-      genero: ['outro'],
-      telefone: ["555555", Validators.required],
+      nome: [null, Validators.required],
+      nascimento: [null, [Validators.required]],
+      cpf: ["", [Validators.required]],
+      cidade: ["", Validators.required],
+      email: ["", [Validators.required, Validators.email]],
+      senha: ["", [Validators.required, Validators.minLength(3)]],
+      genero: [''],
+      telefone: ["", Validators.required],
       estado: this.estadoControl,
-      confirmarEmail: ["null@gmail.com", [Validators.required, Validators.email, FormValidation.equalTo('email')]],
-      confirmarSenha: ["null", [Validators.required, Validators.minLength(3), FormValidation.equalTo('senha')]],
+      confirmarEmail: ["", [Validators.required, Validators.email, FormValidation.equalTo('email')]],
+      confirmarSenha: ["", [Validators.required, Validators.minLength(3), FormValidation.equalTo('senha')]],
       aceitarTermos: [null, [Validators.requiredTrue]]
     });
+
+    if(this.perfilComponent){
+      this.cadastroForm.get('aceitarTermos')?.setValidators(null)
+    }else{
+      this.cadastroForm.get('aceitarTermos')?.setValidators([Validators.requiredTrue])
+    }
+    this.cadastroForm.get('aceitarTermos')?.updateValueAndValidity();
+
     this.formularioService.setCadastro(this.cadastroForm)
   }
 
   executarAcao(){
     this.acaoCLique.emit();
+  }
+
+  deslogar(){
+    this.sair.emit()
   }
 
 }
