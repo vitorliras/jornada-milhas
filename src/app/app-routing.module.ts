@@ -6,27 +6,36 @@ import { FormBaseComponent } from './shared/form-base/form-base.component';
 import { CadastroComponent } from './pages/cadastro/cadastro.component';
 import { PerfilComponent } from './pages/perfil/perfil.component';
 import { authGuard } from './core/guards/auth.guard';
+import { BuscaComponent } from './pages/busca/busca.component';
+
+//Código omitido
 
 const routes: Routes = [
   {
-    path:"",
+    path: '',
     component: HomeComponent
   },
   {
-    path:"login",
+    path: 'login',
     component: LoginComponent
   },
   {
-    path:"cadastro",
+    path: 'cadastro',
     component: CadastroComponent
-  }
-  ,
+  },
   {
-    path:"perfil",
+    path: 'perfil',
     component: PerfilComponent,
     canActivate: [authGuard]
+  },
+  {
+    path: 'busca',
+    component: BuscaComponent
   }
 ];
+
+//Código omitido
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
