@@ -1,11 +1,13 @@
 <app-banner
   src="assets/imagens/banner-perfil.png"
-  alt="Banner da aplicação Jornada"
-></app-banner>
+  alt="Banner da tela de perfil">
+</app-banner>
 <app-form-base
-(acaoCLique)="atualizar()"
-(sair)="deslogar()"
-[txtBotao]="txtBotao"
-[titulo]="titulo + nome"
-[perfilComponent]="perfilComponent"
-></app-form-base>
+  [titulo]="titulo + nome"
+  [textoBotao]="textoBotao"
+  [perfilComponent]="true"
+  (sair)="deslogar()"
+  (acaoClique)="atualizar()">
+</app-form-base>
+
+

@@ -1,11 +1,11 @@
-import { UserService } from './user.service';
-import { Observable, tap } from 'rxjs';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { UserService } from './user.service';
 
-interface AuthResponse{
-  access_token:string
+interface AuthResponse {
+  access_token: string;
 }
 
 @Injectable({
@@ -13,12 +13,14 @@ interface AuthResponse{
 })
 export class AutenticacaoService {
 
-  private apiUrl: string = environment.apiUrl
+  private apiUrl: string = environment.apiUrl;
 
-  constructor(private http: HttpClient,
-    private userService: UserService) { }
+  constructor(
+    private http: HttpClient,
+    private userService: UserService
+  ) {}
 
-  autenticar(email: string, senha:string): Observable<HttpResponse<AuthResponse>>{
+  autenticar(email: string, senha: string): Observable<HttpResponse<AuthResponse>> {
     return this.http.post<AuthResponse>(
       `${this.apiUrl}/auth/login`,
       { email, senha },

@@ -5,18 +5,20 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
   selector: 'app-seletor-passageiro',
   templateUrl: './seletor-passageiro.component.html',
   styleUrls: ['./seletor-passageiro.component.scss'],
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => SeletorPassageiroComponent),
-    multi: true
-  }]
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SeletorPassageiroComponent),
+      multi: true
+    }
+  ]
 })
 export class SeletorPassageiroComponent implements ControlValueAccessor {
 
-  @Input() titulo!: string
-  @Input() subTitulo!: string
+  @Input() titulo: string = ''
+  @Input() subtitulo: string = ''
 
-  value: number = 0;
+  value: number = 0
   onChange = (val: number) => {}
   onTouch = () => {}
 
@@ -24,29 +26,27 @@ export class SeletorPassageiroComponent implements ControlValueAccessor {
     this.value = val
   }
   registerOnChange(fn: any): void {
-    this.onChange = fn;
+    this.onChange = fn
   }
   registerOnTouched(fn: any): void {
-    this.onTouch = fn;
+    this.onTouch = fn
   }
   setDisabledState?(isDisabled: boolean): void {
-    throw new Error('Method not implemented.');
+    
   }
 
-  incrementar(){
-    this.value +=1
+  incrementar () {
+    this.value += 1
     this.onChange(this.value)
     this.onTouch()
   }
 
-  decrementar(){
+  decrementar () {
     if (this.value > 0) {
-      this.value -=1
+      this.value -= 1
       this.onChange(this.value)
       this.onTouch()
-
     }
   }
 
 }
-

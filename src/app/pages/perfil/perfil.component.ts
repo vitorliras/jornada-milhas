@@ -10,82 +10,76 @@ import { PessoaUsuaria } from 'src/app/core/types/type';
 @Component({
   selector: 'app-perfil',
   templateUrl: './perfil.component.html',
-  styleUrls: ['./perfil.component.scss'],
+  styleUrls: ['./perfil.component.scss']
 })
-
-export class PerfilComponent implements OnInit {
+export class PerfilComponent implements OnInit{
+  titulo = 'Olá, ';
+  textoBotao = 'ATUALIZAR';
   perfilComponent = true;
-  titulo = 'Olá ';
-  txtBotao = 'EDITAR';
 
-  token= ''
-  nome = ''
   cadastro!: PessoaUsuaria;
+  token: string = '';
+  nome: string = '';
   form!: FormGroup<any> | null;
 
   constructor(
-    private tokenService: TokenService,
     private cadastroService: CadastroService,
+    private tokenService: TokenService,
     private formularioService: FormularioService,
     private userService: UserService,
     private router: Router
-  ){}
+  ) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.token = this.tokenService.retornarToken();
-    this.cadastroService.buscarCadastro().subscribe(cadastro =>{
+    this.cadastroService.buscarCadastro().subscribe(cadastro => {
       this.cadastro = cadastro;
-      this.nome = this.cadastro.nome;
+      this.nome = cadastro.nome;
       this.carregarFormulario();
     })
   }
 
-  //Código omitido
-
-carregarFormulario() {
- this.form= this.formularioService.getCadastro();
-  this.form?.patchValue({
+  carregarFormulario() {
+    this.form = this.formularioService.getCadastro();
+    this.form?.patchValue({
       nome: this.cadastro.nome,
       nascimento: this.cadastro.nascimento,
       cpf: this.cadastro.cpf,
-      telefone: this.cadastro.telefone,
+      cidade: this.cadastro.cidade,
       email: this.cadastro.email,
       senha: this.cadastro.senha,
-      cidade: this.cadastro.cidade,
+      genero: this.cadastro.genero,
+      telefone: this.cadastro.telefone,
       estado: this.cadastro.estado,
-      genero: this.cadastro.genero
-  })
-}
-
-
-  deslogar() {
-    this.userService.logout();
-    this.router.navigate(['/login']);
+    });
   }
 
   atualizar() {
-   const dadosAtualizados = {
+    const dadosAtualizados = {
       nome: this.form?.value.nome,
       nascimento: this.form?.value.nascimento,
       cpf: this.form?.value.cpf,
       telefone: this.form?.value.telefone,
       email: this.form?.value.email,
       senha: this.form?.value.senha,
+      genero: this.form?.value.genero,
       cidade: this.form?.value.cidade,
-      estado: this.form?.value.estado,
-      genero: this.form?.value.genero
-   }
+      estado: this.form?.value.estado
+    }
 
-this.cadastroService.editarCadastro(dadosAtualizados).subscribe({
-  next: ()=>{
-    alert('Perfil editado com sucesso')
-    this.router.navigate(['/'])
-  },
-  error: (err)=> {
-    console.log('rro ao atualizar o cadastro', err)
-
+    this.cadastroService.editarCadastro(dadosAtualizados).subscribe({
+      next: () => {
+        alert('Cadastro editado com sucesso')
+        this.router.navigate(['/']);
+      },
+      error: (err) => {
+        console.log(err)
+      }
+    })
   }
-})
 
+  deslogar() {
+    this.userService.logout();
+    this.router.navigate(['/login']);
   }
 }

@@ -1,32 +1,22 @@
-import { Component, Output, EventEmitter } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { ModalComponent } from '../modal/modal.component';
-import { FormBuscaServiceService } from 'src/app/core/services/form-busca-service.service';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormBuscaService } from 'src/app/core/services/form-busca.service';
 
 @Component({
   selector: 'app-form-busca',
   templateUrl: './form-busca.component.html',
-  styleUrls: ['./form-busca.component.scss'],
+  styleUrls: ['./form-busca.component.scss']
 })
 export class FormBuscaComponent {
-
-  @Output() realizarBusca = new EventEmitter()
-
+  @Output() realizarBusca = new EventEmitter();
   constructor(
-    public dialog: MatDialog,
-    public formBuscaService: FormBuscaServiceService
-  ) {}
+    public formBuscaService: FormBuscaService) { }
 
-  openDialog() {
-    this.dialog.open(ModalComponent, {
-      width: '50%',
-    });
+  buscar() {
+    if (this.formBuscaService.formEstaValido) {
+      const formBuscavalue = this.formBuscaService.obterDadosBusca();
+      this.realizarBusca.emit(formBuscavalue);
+    } else {
+      alert('O formulário precisa ser preenchido')
+    }
   }
-
-  buscar(){
-    this.realizarBusca.emit(this.formBuscaService.formBusca.value)
-  }
-
-
-
 }

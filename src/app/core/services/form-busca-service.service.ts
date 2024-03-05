@@ -17,15 +17,16 @@ export class FormBuscaServiceService {
     const dataVolta = new FormControl(null, [Validators.required])
 
     this.formBusca = new FormGroup({
-      somenteIda: new FormControl(false, [Validators.required]),
+      somenteIda,
       origem: new FormControl(null, [Validators.required]),
       destino: new FormControl(null, [Validators.required]),
       tipo: new FormControl("Executiva"),
-      adultos: new FormControl(3),
+      adultos: new FormControl(1),
       criancas: new FormControl(0),
-      bebes: new FormControl(1),
+      bebes: new FormControl(0),
       dataIda: new FormControl(null, [Validators.required]),
-      dataVolta
+      dataVolta,
+      conexoes: new FormControl(null)
     })
     somenteIda.valueChanges.subscribe(somenteIda => {
       if(somenteIda){
@@ -96,6 +97,10 @@ export class FormBuscaServiceService {
     if (dataVoltaControl.value) {
       dadosBusca.dataVolta = dataVoltaControl.value.toISOString();
     }
+    const conexoesControl = this.obterControle<number>('conexoes');
+    if(conexoesControl.value){
+      dadosBusca.conexoes = conexoesControl.value;
+    }
     return dadosBusca
   }
 
@@ -117,4 +122,5 @@ export class FormBuscaServiceService {
   get formEstaValido(){
     return this.formBusca.valid
   }
+
 }

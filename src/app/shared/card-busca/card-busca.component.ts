@@ -7,7 +7,5 @@ import { Promocao } from 'src/app/core/types/type';
   styleUrls: ['./card-busca.component.scss']
 })
 export class CardBuscaComponent {
-
   @Input() promocao!: Promocao;
-
 }
