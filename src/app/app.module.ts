@@ -11,6 +11,7 @@ import { SharedModule } from './shared/shared.module';
 import { MaterialModule } from './core/material/material.module';
 import { HomeModule } from './home/home.module';
 import { ErroModule } from './core/erro/erro.module';
+import { ErrosInterceptor } from './core/erro/erros.interceptor';
 
 @NgModule({
   declarations: [
@@ -27,11 +28,18 @@ import { ErroModule } from './core/erro/erro.module';
     ReactiveFormsModule,
     ErroModule
   ],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: AutenticacaoInterceptor,
-    multi: true
-  }],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AutenticacaoInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrosInterceptor,
+      multi: true
+    },
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
